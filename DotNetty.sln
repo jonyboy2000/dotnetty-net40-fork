@@ -16,8 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3D04C4DC-6F8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{B6984E67-A4D0-459E-B3C9-01CA4DBBE241}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CuteAnt.Extensions.Reflection.Sources", "..\CuteAnt.Extensions.Common\src\CuteAnt.Extensions.Reflection.Sources\CuteAnt.Extensions.Reflection.Sources.shproj", "{C7F8DBE6-77B7-494D-AF00-018F7579548C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{3511E2D1-F581-420E-8DC4-8F0386947621}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetty.Common", "src\DotNetty.Common\DotNetty.Common.csproj", "{3B9613C3-0FE1-4F7A-AD5A-454952629867}"
@@ -25,8 +23,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetty.Buffers", "src\DotNetty.Buffers\DotNetty.Buffers.csproj", "{0040F4F7-B6F8-4823-A6F6-1ABC16C20098}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetty.Transport", "src\DotNetty.Transport\DotNetty.Transport.csproj", "{C2A9F2F6-363A-4AE0-8080-6830CB204996}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Nito.AsyncEx.ExceptionEnlightenment.Sources", "..\CuteAnt.Extensions.Common\src\Nito.AsyncEx.ExceptionEnlightenment.Sources\Nito.AsyncEx.ExceptionEnlightenment.Sources.shproj", "{D90E9B82-6317-4055-82E3-FE8625C143E9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetty.Codecs", "src\DotNetty.Codecs\DotNetty.Codecs.csproj", "{D02DB5E8-FD54-46C4-8793-F117B7165D7D}"
 EndProject
@@ -98,10 +94,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpServer", "examples\Http
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetty.Transport.Libuv.Tests", "test\DotNetty.Transport.Libuv.Tests\DotNetty.Transport.Libuv.Tests.csproj", "{5938CE7C-61CD-4C70-82B8-B236AC881A14}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CuteAnt.Extensions.Reflection.Sources", "shared\CuteAnt.Extensions.Reflection.Sources\CuteAnt.Extensions.Reflection.Sources.shproj", "{C7F8DBE6-77B7-494D-AF00-018F7579548C}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Nito.AsyncEx.ExceptionEnlightenment.Sources", "shared\Nito.AsyncEx.ExceptionEnlightenment.Sources\Nito.AsyncEx.ExceptionEnlightenment.Sources.shproj", "{D90E9B82-6317-4055-82E3-FE8625C143E9}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\CuteAnt.Extensions.Common\src\CuteAnt.Extensions.Reflection.Sources\CuteAnt.Extensions.Reflection.Sources.projitems*{c7f8dbe6-77b7-494d-af00-018f7579548c}*SharedItemsImports = 13
-		..\CuteAnt.Extensions.Common\src\Nito.AsyncEx.ExceptionEnlightenment.Sources\Nito.AsyncEx.ExceptionEnlightenment.Sources.projitems*{d90e9b82-6317-4055-82e3-fe8625c143e9}*SharedItemsImports = 13
+		shared\CuteAnt.Extensions.Reflection.Sources\CuteAnt.Extensions.Reflection.Sources.projitems*{c7f8dbe6-77b7-494d-af00-018f7579548c}*SharedItemsImports = 13
+		shared\Nito.AsyncEx.ExceptionEnlightenment.Sources\Nito.AsyncEx.ExceptionEnlightenment.Sources.projitems*{d90e9b82-6317-4055-82e3-fe8625c143e9}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -711,11 +711,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C7F8DBE6-77B7-494D-AF00-018F7579548C} = {B6984E67-A4D0-459E-B3C9-01CA4DBBE241}
 		{3B9613C3-0FE1-4F7A-AD5A-454952629867} = {3D04C4DC-6F8E-4326-9569-92F3E26C6EEB}
 		{0040F4F7-B6F8-4823-A6F6-1ABC16C20098} = {3D04C4DC-6F8E-4326-9569-92F3E26C6EEB}
 		{C2A9F2F6-363A-4AE0-8080-6830CB204996} = {3D04C4DC-6F8E-4326-9569-92F3E26C6EEB}
-		{D90E9B82-6317-4055-82E3-FE8625C143E9} = {B6984E67-A4D0-459E-B3C9-01CA4DBBE241}
 		{D02DB5E8-FD54-46C4-8793-F117B7165D7D} = {3D04C4DC-6F8E-4326-9569-92F3E26C6EEB}
 		{B4E683BC-92EA-4ADC-8B99-BA7208507D80} = {3D04C4DC-6F8E-4326-9569-92F3E26C6EEB}
 		{D8AE3ECA-1BE6-44C5-9174-7C92CCFBEFC2} = {3D04C4DC-6F8E-4326-9569-92F3E26C6EEB}
@@ -750,6 +748,8 @@ Global
 		{26A8779A-44B1-46D4-A43E-FA2616EBFD02} = {01F3CC7E-F996-411E-AFD6-72673A826549}
 		{BDDF75B4-4BAB-49DE-97A3-CA191C523636} = {3511E2D1-F581-420E-8DC4-8F0386947621}
 		{5938CE7C-61CD-4C70-82B8-B236AC881A14} = {01F3CC7E-F996-411E-AFD6-72673A826549}
+		{C7F8DBE6-77B7-494D-AF00-018F7579548C} = {B6984E67-A4D0-459E-B3C9-01CA4DBBE241}
+		{D90E9B82-6317-4055-82E3-FE8625C143E9} = {B6984E67-A4D0-459E-B3C9-01CA4DBBE241}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A659CEFB-DDB3-49BE-AEDD-FF2F1B3297DB}

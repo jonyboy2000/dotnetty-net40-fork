@@ -1,0 +1,180 @@
+<Project>
+  <!-- Shared Package Versions -->
+  <PropertyGroup>
+    <MicrosoftAspNetCorePackageVersion>2.1.2</MicrosoftAspNetCorePackageVersion>
+    <MicrosoftAspNetCoreAllPackageVersion>2.1.2</MicrosoftAspNetCoreAllPackageVersion>
+
+    <MicrosoftAspNetCoreAntiforgeryPackageVersion>2.1.1</MicrosoftAspNetCoreAntiforgeryPackageVersion>
+    <MicrosoftAspNetCoreApplicationInsightsHostingStartupPackageVersion>2.1.1</MicrosoftAspNetCoreApplicationInsightsHostingStartupPackageVersion>
+    <MicrosoftAspNetCoreAuthenticationPackageVersion>2.1.1</MicrosoftAspNetCoreAuthenticationPackageVersion>
+    <MicrosoftAspNetCoreAuthenticationAbstractionsPackageVersion>2.1.1</MicrosoftAspNetCoreAuthenticationAbstractionsPackageVersion>
+    <MicrosoftAspNetCoreAuthenticationCookiesPackageVersion>2.1.1</MicrosoftAspNetCoreAuthenticationCookiesPackageVersion>
+    <MicrosoftAspNetCoreAuthenticationCorePackageVersion>2.1.1</MicrosoftAspNetCoreAuthenticationCorePackageVersion>
+    <MicrosoftAspNetCoreAuthenticationFacebookPackageVersion>2.1.1</MicrosoftAspNetCoreAuthenticationFacebookPackageVersion>
+    <MicrosoftAspNetCoreAuthenticationGooglePackageVersion>2.1.1</MicrosoftAspNetCoreAuthenticationGooglePackageVersion>
+    <MicrosoftAspNetCoreAuthenticationJwtBearerPackageVersion>2.1.1</MicrosoftAspNetCoreAuthenticationJwtBearerPackageVersion>
+    <MicrosoftAspNetCoreAuthenticationMicrosoftAccountPackageVersion>2.1.1</MicrosoftAspNetCoreAuthenticationMicrosoftAccountPackageVersion>
+    <MicrosoftAspNetCoreAuthenticationOAuthPackageVersion>2.1.1</MicrosoftAspNetCoreAuthenticationOAuthPackageVersion>
+    <MicrosoftAspNetCoreAuthenticationOpenIdConnectPackageVersion>2.1.1</MicrosoftAspNetCoreAuthenticationOpenIdConnectPackageVersion>
+    <MicrosoftAspNetCoreAuthenticationTwitterPackageVersion>2.1.1</MicrosoftAspNetCoreAuthenticationTwitterPackageVersion>
+    <MicrosoftAspNetCoreAuthenticationWsFederationPackageVersion>2.1.1</MicrosoftAspNetCoreAuthenticationWsFederationPackageVersion>
+    <MicrosoftAspNetCoreAuthorizationPackageVersion>2.1.1</MicrosoftAspNetCoreAuthorizationPackageVersion>
+    <MicrosoftAspNetCoreAuthorizationPolicyPackageVersion>2.1.1</MicrosoftAspNetCoreAuthorizationPolicyPackageVersion>
+    <MicrosoftAspNetCoreAzureAppServicesHostingStartupPackageVersion>2.1.1</MicrosoftAspNetCoreAzureAppServicesHostingStartupPackageVersion>
+    <MicrosoftAspNetCoreAzureAppServicesIntegrationPackageVersion>2.1.1</MicrosoftAspNetCoreAzureAppServicesIntegrationPackageVersion>
+    <MicrosoftAspNetCoreAzureAppServicesSiteExtensionPackageVersion>2.1.1</MicrosoftAspNetCoreAzureAppServicesSiteExtensionPackageVersion>
+
+    <MicrosoftAspNetCoreConnectionsAbstractionsPackageVersion>2.1.2</MicrosoftAspNetCoreConnectionsAbstractionsPackageVersion>
+    <MicrosoftAspNetCoreCookiePolicyPackageVersion>2.1.1</MicrosoftAspNetCoreCookiePolicyPackageVersion>
+    <MicrosoftAspNetCoreCorsPackageVersion>2.1.1</MicrosoftAspNetCoreCorsPackageVersion>
+    <MicrosoftAspNetCoreCryptographyInternalPackageVersion>2.1.1</MicrosoftAspNetCoreCryptographyInternalPackageVersion>
+    <MicrosoftAspNetCoreCryptographyKeyDerivationPackageVersion>2.1.1</MicrosoftAspNetCoreCryptographyKeyDerivationPackageVersion>
+    <MicrosoftAspNetCoreDataProtectionPackageVersion>2.1.1</MicrosoftAspNetCoreDataProtectionPackageVersion>
+    <MicrosoftAspNetCoreDataProtectionAbstractionsPackageVersion>2.1.1</MicrosoftAspNetCoreDataProtectionAbstractionsPackageVersion>
+    <MicrosoftAspNetCoreDataProtectionAzureKeyVaultPackageVersion>2.1.1</MicrosoftAspNetCoreDataProtectionAzureKeyVaultPackageVersion>
+    <MicrosoftAspNetCoreDataProtectionAzureStoragePackageVersion>2.1.1</MicrosoftAspNetCoreDataProtectionAzureStoragePackageVersion>
+    <MicrosoftAspNetCoreDataProtectionExtensionsPackageVersion>2.1.1</MicrosoftAspNetCoreDataProtectionExtensionsPackageVersion>
+
+    <MicrosoftAspNetCoreDataProtectionRedisPackageVersion>0.4.0</MicrosoftAspNetCoreDataProtectionRedisPackageVersion>
+
+    <MicrosoftAspNetCoreDataProtectionSystemWebPackageVersion>2.1.1</MicrosoftAspNetCoreDataProtectionSystemWebPackageVersion>
+    <MicrosoftAspNetCoreDiagnosticsPackageVersion>2.1.1</MicrosoftAspNetCoreDiagnosticsPackageVersion>
+    <MicrosoftAspNetCoreDiagnosticsAbstractionsPackageVersion>2.1.1</MicrosoftAspNetCoreDiagnosticsAbstractionsPackageVersion>
+
+    <!--<MicrosoftAspNetCoreDiagnosticsElmPackageVersion>0.4.0-preview2-final</MicrosoftAspNetCoreDiagnosticsElmPackageVersion>-->
+
+    <MicrosoftAspNetCoreDiagnosticsEntityFrameworkCorePackageVersion>2.1.1</MicrosoftAspNetCoreDiagnosticsEntityFrameworkCorePackageVersion>
+    <MicrosoftAspNetCoreDiagnosticsIdentityServicePackageVersion>2.1.1</MicrosoftAspNetCoreDiagnosticsIdentityServicePackageVersion>
+    <MicrosoftAspNetCoreHostFilteringPackageVersion>2.1.1</MicrosoftAspNetCoreHostFilteringPackageVersion>
+    <MicrosoftAspNetCoreHostingPackageVersion>2.1.1</MicrosoftAspNetCoreHostingPackageVersion>
+    <MicrosoftAspNetCoreHostingAbstractionsPackageVersion>2.1.1</MicrosoftAspNetCoreHostingAbstractionsPackageVersion>
+    <MicrosoftAspNetCoreHostingServerAbstractionsPackageVersion>2.1.1</MicrosoftAspNetCoreHostingServerAbstractionsPackageVersion>
+    <MicrosoftAspNetCoreHostingWindowsServicesPackageVersion>2.1.1</MicrosoftAspNetCoreHostingWindowsServicesPackageVersion>
+    <MicrosoftAspNetCoreHtmlAbstractionsPackageVersion>2.1.1</MicrosoftAspNetCoreHtmlAbstractionsPackageVersion>
+    <MicrosoftAspNetCoreHttpPackageVersion>2.1.1</MicrosoftAspNetCoreHttpPackageVersion>
+    <MicrosoftAspNetCoreHttpAbstractionsPackageVersion>2.1.1</MicrosoftAspNetCoreHttpAbstractionsPackageVersion>
+
+    <MicrosoftAspNetCoreHttpConnectionsPackageVersion>1.0.1</MicrosoftAspNetCoreHttpConnectionsPackageVersion>
+    <MicrosoftAspNetCoreHttpConnectionsClientPackageVersion>1.0.1</MicrosoftAspNetCoreHttpConnectionsClientPackageVersion>
+    <MicrosoftAspNetCoreHttpConnectionsCommonPackageVersion>1.0.1</MicrosoftAspNetCoreHttpConnectionsCommonPackageVersion>
+
+    <MicrosoftAspNetCoreHttpExtensionsPackageVersion>2.1.1</MicrosoftAspNetCoreHttpExtensionsPackageVersion>
+    <MicrosoftAspNetCoreHttpFeaturesPackageVersion>2.1.1</MicrosoftAspNetCoreHttpFeaturesPackageVersion>
+    <MicrosoftAspNetCoreHttpOverridesPackageVersion>2.1.1</MicrosoftAspNetCoreHttpOverridesPackageVersion>
+    <MicrosoftAspNetCoreHttpsPolicyPackageVersion>2.1.1</MicrosoftAspNetCoreHttpsPolicyPackageVersion>
+    <MicrosoftAspNetCoreIdentityPackageVersion>2.1.2</MicrosoftAspNetCoreIdentityPackageVersion>
+    <MicrosoftAspNetCoreIdentityEntityFrameworkCorePackageVersion>2.1.2</MicrosoftAspNetCoreIdentityEntityFrameworkCorePackageVersion>
+    <MicrosoftAspNetCoreIdentityUIPackageVersion>2.1.2</MicrosoftAspNetCoreIdentityUIPackageVersion>
+    <MicrosoftAspNetCoreJsonPatchPackageVersion>2.1.1</MicrosoftAspNetCoreJsonPatchPackageVersion>
+    <MicrosoftAspNetCoreLocalizationPackageVersion>2.1.1</MicrosoftAspNetCoreLocalizationPackageVersion>
+    <MicrosoftAspNetCoreLocalizationRoutingPackageVersion>2.1.1</MicrosoftAspNetCoreLocalizationRoutingPackageVersion>
+    <MicrosoftAspNetCoreMiddlewareAnalysisPackageVersion>2.1.1</MicrosoftAspNetCoreMiddlewareAnalysisPackageVersion>
+    <MicrosoftAspNetCoreMvcPackageVersion>2.1.1</MicrosoftAspNetCoreMvcPackageVersion>
+    <MicrosoftAspNetCoreMvcAbstractionsPackageVersion>2.1.1</MicrosoftAspNetCoreMvcAbstractionsPackageVersion>
+    <MicrosoftAspNetCoreMvcAnalyzersPackageVersion>2.1.1</MicrosoftAspNetCoreMvcAnalyzersPackageVersion>
+    <MicrosoftAspNetCoreMvcApiExplorerPackageVersion>2.1.1</MicrosoftAspNetCoreMvcApiExplorerPackageVersion>
+    <MicrosoftAspNetCoreMvcCorePackageVersion>2.1.1</MicrosoftAspNetCoreMvcCorePackageVersion>
+    <MicrosoftAspNetCoreMvcCorsPackageVersion>2.1.1</MicrosoftAspNetCoreMvcCorsPackageVersion>
+    <MicrosoftAspNetCoreMvcDataAnnotationsPackageVersion>2.1.1</MicrosoftAspNetCoreMvcDataAnnotationsPackageVersion>
+    <MicrosoftAspNetCoreMvcFormattersJsonPackageVersion>2.1.1</MicrosoftAspNetCoreMvcFormattersJsonPackageVersion>
+    <MicrosoftAspNetCoreMvcFormattersXmlPackageVersion>2.1.1</MicrosoftAspNetCoreMvcFormattersXmlPackageVersion>
+    <MicrosoftAspNetCoreMvcLocalizationPackageVersion>2.1.1</MicrosoftAspNetCoreMvcLocalizationPackageVersion>
+    <MicrosoftAspNetCoreMvcRazorExtensionsPackageVersion>2.1.1</MicrosoftAspNetCoreMvcRazorExtensionsPackageVersion>
+    <MicrosoftAspNetCoreMvcRazorPackageVersion>2.1.1</MicrosoftAspNetCoreMvcRazorPackageVersion>
+    <MicrosoftAspNetCoreMvcRazorPagesPackageVersion>2.1.1</MicrosoftAspNetCoreMvcRazorPagesPackageVersion>
+    <MicrosoftAspNetCoreMvcRazorViewCompilationPackageVersion>2.1.1</MicrosoftAspNetCoreMvcRazorViewCompilationPackageVersion>
+    <MicrosoftAspNetCoreMvcTagHelpersPackageVersion>2.1.1</MicrosoftAspNetCoreMvcTagHelpersPackageVersion>
+    <MicrosoftAspNetCoreMvcViewFeaturesPackageVersion>2.1.1</MicrosoftAspNetCoreMvcViewFeaturesPackageVersion>
+    <MicrosoftAspNetCoreNodeServicesPackageVersion>2.1.1</MicrosoftAspNetCoreNodeServicesPackageVersion>
+    <!--<MicrosoftAspNetCoreNodeServicesSocketsPackageVersion>2.1.1</MicrosoftAspNetCoreNodeServicesSocketsPackageVersion>-->
+
+    <!--<MicrosoftAspNetCoreProxyPackageVersion>0.3.0-preview2-final</MicrosoftAspNetCoreProxyPackageVersion>-->
+
+    <MicrosoftAspNetCoreRazorPackageVersion>2.1.1</MicrosoftAspNetCoreRazorPackageVersion>
+    <MicrosoftAspNetCoreRazorDesignPackageVersion>2.1.1</MicrosoftAspNetCoreRazorDesignPackageVersion>
+    <MicrosoftAspNetCoreRazorLanguagePackageVersion>2.1.1</MicrosoftAspNetCoreRazorLanguagePackageVersion>
+    <MicrosoftAspNetCoreRazorRuntimePackageVersion>2.1.1</MicrosoftAspNetCoreRazorRuntimePackageVersion>
+    <MicrosoftAspNetCoreResponseCachingAbstractionsPackageVersion>2.1.1</MicrosoftAspNetCoreResponseCachingAbstractionsPackageVersion>
+    <MicrosoftAspNetCoreResponseCachingPackageVersion>2.1.1</MicrosoftAspNetCoreResponseCachingPackageVersion>
+    <MicrosoftAspNetCoreResponseCompressionPackageVersion>2.1.1</MicrosoftAspNetCoreResponseCompressionPackageVersion>
+    <MicrosoftAspNetCoreRewritePackageVersion>2.1.1</MicrosoftAspNetCoreRewritePackageVersion>
+    <MicrosoftAspNetCoreRoutingAbstractionsPackageVersion>2.1.1</MicrosoftAspNetCoreRoutingAbstractionsPackageVersion>
+    <MicrosoftAspNetCoreRoutingPackageVersion>2.1.1</MicrosoftAspNetCoreRoutingPackageVersion>
+    <MicrosoftAspNetCoreServerHttpSysPackageVersion>2.1.1</MicrosoftAspNetCoreServerHttpSysPackageVersion>
+    <MicrosoftAspNetCoreServerIISIntegrationPackageVersion>2.1.2</MicrosoftAspNetCoreServerIISIntegrationPackageVersion>
+
+    <!--<MicrosoftAspNetCoreServerIntegrationTestingPackageVersion>0.5.0-preview2-32037</MicrosoftAspNetCoreServerIntegrationTestingPackageVersion>-->
+
+    <MicrosoftAspNetCoreServerKestrelPackageVersion>2.1.2</MicrosoftAspNetCoreServerKestrelPackageVersion>
+    <MicrosoftAspNetCoreServerKestrelCorePackageVersion>2.1.2</MicrosoftAspNetCoreServerKestrelCorePackageVersion>
+    <MicrosoftAspNetCoreServerKestrelHttpsPackageVersion>2.1.2</MicrosoftAspNetCoreServerKestrelHttpsPackageVersion>
+    <MicrosoftAspNetCoreServerKestrelTransportAbstractionsPackageVersion>2.1.2</MicrosoftAspNetCoreServerKestrelTransportAbstractionsPackageVersion>
+    <MicrosoftAspNetCoreServerKestrelTransportLibuvPackageVersion>2.1.2</MicrosoftAspNetCoreServerKestrelTransportLibuvPackageVersion>
+    <MicrosoftAspNetCoreServerKestrelTransportSocketsPackageVersion>2.1.2</MicrosoftAspNetCoreServerKestrelTransportSocketsPackageVersion>
+    <MicrosoftAspNetCoreSessionPackageVersion>2.1.1</MicrosoftAspNetCoreSessionPackageVersion>
+
+    <MicrosoftAspNetCoreSignalRPackageVersion>1.0.2</MicrosoftAspNetCoreSignalRPackageVersion>
+    <MicrosoftAspNetCoreSignalRClientPackageVersion>1.0.2</MicrosoftAspNetCoreSignalRClientPackageVersion>
+    <MicrosoftAspNetCoreSignalRClientCorePackageVersion>1.0.2</MicrosoftAspNetCoreSignalRClientCorePackageVersion>
+    <MicrosoftAspNetCoreSignalRClientMsgPackPackageVersion>1.0.2</MicrosoftAspNetCoreSignalRClientMsgPackPackageVersion>
+    <MicrosoftAspNetCoreSignalRCommonPackageVersion>1.0.2</MicrosoftAspNetCoreSignalRCommonPackageVersion>
+    <MicrosoftAspNetCoreSignalRCorePackageVersion>1.0.2</MicrosoftAspNetCoreSignalRCorePackageVersion>
+    <MicrosoftAspNetCoreSignalRMsgPackPackageVersion>1.0.2</MicrosoftAspNetCoreSignalRMsgPackPackageVersion>
+    <MicrosoftAspNetCoreSignalRProtocolsMsgPackPackageVersion>1.0.2</MicrosoftAspNetCoreSignalRProtocolsMsgPackPackageVersion>
+    <MicrosoftAspNetCoreSignalRRedisPackageVersion>1.0.2</MicrosoftAspNetCoreSignalRRedisPackageVersion>
+
+    <MicrosoftAspNetCoreSpaServicesPackageVersion>2.1.1</MicrosoftAspNetCoreSpaServicesPackageVersion>
+    <MicrosoftAspNetCoreSpaServicesExtensionsPackageVersion>2.1.1</MicrosoftAspNetCoreSpaServicesExtensionsPackageVersion>
+    <MicrosoftAspNetCoreStaticFilesPackageVersion>2.1.1</MicrosoftAspNetCoreStaticFilesPackageVersion>
+    <MicrosoftAspNetCoreTestHostPackageVersion>2.1.1</MicrosoftAspNetCoreTestHostPackageVersion>
+
+    <!--<MicrosoftAspNetCoreTestingPackageVersion>2.1.1</MicrosoftAspNetCoreTestingPackageVersion>-->
+
+    <MicrosoftAspNetCoreWebSocketsPackageVersion>2.1.1</MicrosoftAspNetCoreWebSocketsPackageVersion>
+    <MicrosoftAspNetCoreWebUtilitiesPackageVersion>2.1.1</MicrosoftAspNetCoreWebUtilitiesPackageVersion>
+
+    <MicrosoftAspNetCoreMvcWebApiCompatShimPackageVersion>2.1.1</MicrosoftAspNetCoreMvcWebApiCompatShimPackageVersion>
+    <MicrosoftAspNetCoreOwinPackageVersion>2.1.1</MicrosoftAspNetCoreOwinPackageVersion>
+
+    <MicrosoftCodeAnalysisRazorPackageVersion>2.1.1</MicrosoftCodeAnalysisRazorPackageVersion>
+
+    <MicrosoftDataSqliteCorePackageVersion>2.1.0</MicrosoftDataSqliteCorePackageVersion>
+    <MicrosoftDataSqlitePackageVersion>2.1.0</MicrosoftDataSqlitePackageVersion>
+
+    <MicrosoftDotNetWatcherToolsPackageVersion>2.1.1</MicrosoftDotNetWatcherToolsPackageVersion>
+
+    <MicrosoftEntityFrameworkCorePackageVersion>2.1.1</MicrosoftEntityFrameworkCorePackageVersion>
+    <MicrosoftEntityFrameworkCoreAbstractionsPackageVersion>2.1.1</MicrosoftEntityFrameworkCoreAbstractionsPackageVersion>
+    <MicrosoftEntityFrameworkCoreAnalyzersPackageVersion>2.1.1</MicrosoftEntityFrameworkCoreAnalyzersPackageVersion>
+    <MicrosoftEntityFrameworkCoreDesignPackageVersion>2.1.1</MicrosoftEntityFrameworkCoreDesignPackageVersion>
+    <MicrosoftEntityFrameworkCoreInMemoryPackageVersion>2.1.1</MicrosoftEntityFrameworkCoreInMemoryPackageVersion>
+    <MicrosoftEntityFrameworkCoreRelationalPackageVersion>2.1.1</MicrosoftEntityFrameworkCoreRelationalPackageVersion>
+    <MicrosoftEntityFrameworkCoreRelationalSpecificationTestsPackageVersion>2.1.1</MicrosoftEntityFrameworkCoreRelationalSpecificationTestsPackageVersion>
+    <MicrosoftEntityFrameworkCoreSpecificationTestsPackageVersion>2.1.1</MicrosoftEntityFrameworkCoreSpecificationTestsPackageVersion>
+    <MicrosoftEntityFrameworkCoreSqliteCorePackageVersion>2.1.1</MicrosoftEntityFrameworkCoreSqliteCorePackageVersion>
+    <MicrosoftEntityFrameworkCoreSqlitePackageVersion>2.1.1</MicrosoftEntityFrameworkCoreSqlitePackageVersion>
+    <MicrosoftEntityFrameworkCoreSqlServerPackageVersion>2.1.1</MicrosoftEntityFrameworkCoreSqlServerPackageVersion>
+    <MicrosoftEntityFrameworkCoreToolsDotNetPackageVersion>2.1.1</MicrosoftEntityFrameworkCoreToolsDotNetPackageVersion>
+    <MicrosoftEntityFrameworkCoreToolsPackageVersion>2.1.1</MicrosoftEntityFrameworkCoreToolsPackageVersion>
+
+    <MicrosoftExtensionsIdentityCorePackageVersion>2.1.2</MicrosoftExtensionsIdentityCorePackageVersion>
+    <MicrosoftExtensionsIdentityStoresPackageVersion>2.1.2</MicrosoftExtensionsIdentityStoresPackageVersion>
+    <MicrosoftExtensionsSecretManagerToolsPackageVersion>2.0.1</MicrosoftExtensionsSecretManagerToolsPackageVersion>
+    <MicrosoftExtensionsWebEncodersPackageVersion>2.1.1</MicrosoftExtensionsWebEncodersPackageVersion>
+
+    <MicrosoftNetHttpHeadersPackageVersion>2.1.1</MicrosoftNetHttpHeadersPackageVersion>
+
+    <MicrosoftOwinSecurityInteropPackageVersion>2.1.1</MicrosoftOwinSecurityInteropPackageVersion>
+
+    <MicrosoftVisualStudioWebBrowserLinkPackageVersion>2.1.1</MicrosoftVisualStudioWebBrowserLinkPackageVersion>
+    <MicrosoftVisualStudioWebCodeGenerationContractsPackageVersion>2.1.1</MicrosoftVisualStudioWebCodeGenerationContractsPackageVersion>
+    <MicrosoftVisualStudioWebCodeGenerationCorePackageVersion>2.1.1</MicrosoftVisualStudioWebCodeGenerationCorePackageVersion>
+    <MicrosoftVisualStudioWebCodeGenerationDesignPackageVersion>2.1.1</MicrosoftVisualStudioWebCodeGenerationDesignPackageVersion>
+    <MicrosoftVisualStudioWebCodeGenerationEntityFrameworkCorePackageVersion>2.1.1</MicrosoftVisualStudioWebCodeGenerationEntityFrameworkCorePackageVersion>
+    <MicrosoftVisualStudioWebCodeGenerationPackageVersion>2.1.1</MicrosoftVisualStudioWebCodeGenerationPackageVersion>
+    <MicrosoftVisualStudioWebCodeGenerationTemplatingPackageVersion>2.1.1</MicrosoftVisualStudioWebCodeGenerationTemplatingPackageVersion>
+    <MicrosoftVisualStudioWebCodeGenerationToolsPackageVersion>2.1.1</MicrosoftVisualStudioWebCodeGenerationToolsPackageVersion>
+    <MicrosoftVisualStudioWebCodeGenerationUtilsPackageVersion>2.1.1</MicrosoftVisualStudioWebCodeGenerationUtilsPackageVersion>
+    <MicrosoftVisualStudioWebCodeGeneratorsMvcPackageVersion>2.1.1</MicrosoftVisualStudioWebCodeGeneratorsMvcPackageVersion>
+  </PropertyGroup>
+</Project>
