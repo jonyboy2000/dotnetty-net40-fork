@@ -28,6 +28,8 @@ namespace HttpServer
 
         static async Task RunServerAsync()
         {
+            ExampleHelper.SetConsoleLogger();
+
             Console.WriteLine(
                 $"\n{RuntimeInformation.OSArchitecture} {RuntimeInformation.OSDescription}"
                 + $"\n{RuntimeInformation.ProcessArchitecture} {RuntimeInformation.FrameworkDescription}"
