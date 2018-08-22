@@ -131,9 +131,15 @@ namespace DotNetty.Codecs.Http.WebSockets
                 }
                 else
                 {
+#if NET40
+                    void closeOnComplete(Task t) => ctx.CloseAsync();
+                    ctx.WriteAndFlushAsync(Unpooled.Empty)
+                        .ContinueWith(closeOnComplete, TaskContinuationOptions.ExecuteSynchronously);
+#else
                     ctx.WriteAndFlushAsync(Unpooled.Empty)
                         .ContinueWith((t, c) => ((IChannelHandlerContext)c).CloseAsync(),
                             ctx, TaskContinuationOptions.ExecuteSynchronously);
+#endif
                 }
 
                 return;
@@ -148,9 +154,15 @@ namespace DotNetty.Codecs.Http.WebSockets
             {
                 var response = new DefaultFullHttpResponse(Http11, HttpResponseStatus.BadRequest,
                     Unpooled.WrappedBuffer(Encoding.ASCII.GetBytes(cause.Message)));
+#if NET40
+                void closeOnComplete(Task t) => ctx.CloseAsync();
+                ctx.Channel.WriteAndFlushAsync(response)
+                    .ContinueWith(closeOnComplete, TaskContinuationOptions.ExecuteSynchronously);
+#else
                 ctx.Channel.WriteAndFlushAsync(response)
                     .ContinueWith((t, c) => ((IChannelHandlerContext)c).CloseAsync(),
                         ctx, TaskContinuationOptions.ExecuteSynchronously);
+#endif
             }
             else
             {

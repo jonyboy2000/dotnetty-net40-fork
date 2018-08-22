@@ -197,8 +197,14 @@ namespace DotNetty.Codecs.Http.Cors
             Task task = ctx.WriteAndFlushAsync(response);
             if (!keepAlive)
             {
-                task.ContinueWith(CloseOnComplete, ctx, 
+#if NET40
+                void closeOnComplete(Task t) => ctx.CloseAsync();
+                task.ContinueWith(closeOnComplete,
                     TaskContinuationOptions.ExecuteSynchronously);
+#else
+                task.ContinueWith(CloseOnComplete, ctx,
+                    TaskContinuationOptions.ExecuteSynchronously);
+#endif
             }
         }
 

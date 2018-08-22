@@ -52,8 +52,14 @@ namespace DotNetty.Codecs.Http
             }
             if (message is ILastHttpContent && !this.ShouldKeepAlive())
             {
+#if NET40
+                Task closeOnComplete(Task t) => context.CloseAsync();
                 return base.WriteAsync(context, message)
-                    .ContinueWith(CloseOnComplete, context, TaskContinuationOptions.ExecuteSynchronously);
+                    .ContinueWith(closeOnComplete, TaskContinuationOptions.ExecuteSynchronously).Unwrap();
+#else
+                return base.WriteAsync(context, message)
+                    .ContinueWith(CloseOnComplete, context, TaskContinuationOptions.ExecuteSynchronously).Unwrap();
+#endif
             }
             return base.WriteAsync(context, message);
         }

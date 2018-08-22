@@ -76,37 +76,69 @@ namespace DotNetty.Codecs.Http.WebSockets
             }
 
             var completion = new TaskCompletionSource();
-            channel.WriteAndFlushAsync(request).ContinueWith((t, state) =>
+#if NET40
+            void linkOutcomeContinuationAction(Task t)
+            {
+                switch (t.Status)
                 {
-                    var tcs = (TaskCompletionSource)state;
-                    switch (t.Status)
-                    {
-                        case TaskStatus.RanToCompletion:
-                            IChannelPipeline p = channel.Pipeline;
-                            IChannelHandlerContext ctx = p.Context<HttpRequestEncoder>() ?? p.Context<HttpClientCodec>();
-                            if (ctx == null)
-                            {
-                                tcs.TrySetException(new InvalidOperationException("ChannelPipeline does not contain a HttpRequestEncoder or HttpClientCodec"));
-                                return;
-                            }
+                    case TaskStatus.RanToCompletion:
+                        IChannelPipeline p = channel.Pipeline;
+                        IChannelHandlerContext ctx = p.Context<HttpRequestEncoder>() ?? p.Context<HttpClientCodec>();
+                        if (ctx == null)
+                        {
+                            completion.TrySetException(new InvalidOperationException("ChannelPipeline does not contain a HttpRequestEncoder or HttpClientCodec"));
+                            return;
+                        }
 
-                            p.AddAfter(ctx.Name, "ws-encoder", this.NewWebSocketEncoder());
-                            tcs.TryComplete();
-                            break;
-                        case TaskStatus.Canceled:
-                            tcs.TrySetCanceled();
-                            break;
-                        case TaskStatus.Faulted:
-                            tcs.TryUnwrap(t.Exception);
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                },
-                completion,
+                        p.AddAfter(ctx.Name, "ws-encoder", this.NewWebSocketEncoder());
+                        completion.TryComplete();
+                        break;
+                    case TaskStatus.Canceled:
+                        completion.TrySetCanceled();
+                        break;
+                    case TaskStatus.Faulted:
+                        completion.TryUnwrap(t.Exception);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            channel.WriteAndFlushAsync(request).ContinueWith(linkOutcomeContinuationAction, TaskContinuationOptions.ExecuteSynchronously);
+#else
+            channel.WriteAndFlushAsync(request).ContinueWith(LinkOutcomeContinuationAction,
+                new Tuple<TaskCompletionSource, IChannelPipeline, WebSocketClientHandshaker>(completion, channel.Pipeline, this),
                 TaskContinuationOptions.ExecuteSynchronously);
+#endif
 
             return completion.Task;
+        }
+
+        static void LinkOutcomeContinuationAction(Task t, object state)
+        {
+            var wrapper = (Tuple<TaskCompletionSource, IChannelPipeline, WebSocketClientHandshaker>)state;
+            switch (t.Status)
+            {
+                case TaskStatus.RanToCompletion:
+                    IChannelPipeline p = wrapper.Item2;
+                    IChannelHandlerContext ctx = p.Context<HttpRequestEncoder>() ?? p.Context<HttpClientCodec>();
+                    if (ctx == null)
+                    {
+                        wrapper.Item1.TrySetException(new InvalidOperationException("ChannelPipeline does not contain a HttpRequestEncoder or HttpClientCodec"));
+                        return;
+                    }
+
+                    p.AddAfter(ctx.Name, "ws-encoder", wrapper.Item3.NewWebSocketEncoder());
+                    wrapper.Item1.TryComplete();
+                    break;
+                case TaskStatus.Canceled:
+                    wrapper.Item1.TrySetCanceled();
+                    break;
+                case TaskStatus.Faulted:
+                    wrapper.Item1.TryUnwrap(t.Exception);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         protected internal abstract IFullHttpRequest NewHandshakeRequest();

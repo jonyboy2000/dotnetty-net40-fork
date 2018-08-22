@@ -101,8 +101,13 @@ namespace DotNetty.Codecs.Http.WebSockets
             Task task = ctx.Channel.WriteAndFlushAsync(res);
             if (!IsKeepAlive(req) || res.Status.Code != 200)
             {
+#if NET40
+                void closeOnComplete(Task t) => ctx.Channel.CloseAsync();
+                task.ContinueWith(closeOnComplete, TaskContinuationOptions.ExecuteSynchronously);
+#else
                 task.ContinueWith((t, c) => ((IChannel)c).CloseAsync(),
                     ctx.Channel, TaskContinuationOptions.ExecuteSynchronously);
+#endif
             }
         }
 

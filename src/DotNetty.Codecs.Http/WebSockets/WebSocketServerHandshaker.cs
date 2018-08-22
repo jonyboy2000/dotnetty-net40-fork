@@ -217,8 +217,13 @@ namespace DotNetty.Codecs.Http.WebSockets
         {
             Contract.Requires(channel != null);
 
+#if NET40
+            void closeOnComplete(Task t) => channel.CloseAsync();
+            return channel.WriteAndFlushAsync(frame).ContinueWith(closeOnComplete, TaskContinuationOptions.ExecuteSynchronously);
+#else
             return channel.WriteAndFlushAsync(frame).ContinueWith((t, s) => ((IChannel)s).CloseAsync(), 
                     channel, TaskContinuationOptions.ExecuteSynchronously);
+#endif
         }
 
         protected string SelectSubprotocol(string requestedSubprotocols)

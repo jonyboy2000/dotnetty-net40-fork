@@ -396,14 +396,20 @@ namespace DotNetty.Codecs.Http.WebSockets
                 {
                     closeMessage = new CloseWebSocketFrame(1002, null);
                 }
+#if NET40
+                Task closeOnComplete(Task t) => ctx.Channel.CloseAsync();
+                ctx.WriteAndFlushAsync(closeMessage)
+                    .ContinueWith(closeOnComplete, TaskContinuationOptions.ExecuteSynchronously).Unwrap();
+#else
                 ctx.WriteAndFlushAsync(closeMessage)
                     .ContinueWith((t, c) => ((IChannel)c).CloseAsync(),
-                        ctx.Channel, TaskContinuationOptions.ExecuteSynchronously);
+                        ctx.Channel, TaskContinuationOptions.ExecuteSynchronously).Unwrap();
+#endif
             }
             throw ex;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(InlineMethod.Value)]
         static int ToFrameLength(long l)
         {
             if (l > int.MaxValue)

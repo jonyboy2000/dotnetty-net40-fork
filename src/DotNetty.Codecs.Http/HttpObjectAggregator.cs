@@ -159,6 +159,17 @@ namespace DotNetty.Codecs.Http
                 if (oversized is IFullHttpMessage ||
                     !HttpUtil.Is100ContinueExpected(oversized) && !HttpUtil.IsKeepAlive(oversized))
                 {
+#if NET40
+                    void closeOnComplete(Task t)
+                    {
+                        if (t.IsFaulted)
+                        {
+                            Logger.Debug("Failed to send a 413 Request Entity Too Large.", t.Exception);
+                        }
+                        ctx.CloseAsync();
+                    }
+                    ctx.WriteAndFlushAsync(TooLargeClose.RetainedDuplicate()).ContinueWith(closeOnComplete, TaskContinuationOptions.ExecuteSynchronously);
+#else
                     ctx.WriteAndFlushAsync(TooLargeClose.RetainedDuplicate()).ContinueWith((t, s) =>
                         {
                             if (t.IsFaulted)
@@ -169,9 +180,21 @@ namespace DotNetty.Codecs.Http
                         }, 
                         ctx,
                         TaskContinuationOptions.ExecuteSynchronously);
+#endif
                 }
                 else
                 {
+#if NET40
+                    void closeOnFault(Task t)
+                    {
+                        if (t.IsFaulted)
+                        {
+                            Logger.Debug("Failed to send a 413 Request Entity Too Large.", t.Exception);
+                            ctx.CloseAsync();
+                        }
+                    }
+                    ctx.WriteAndFlushAsync(TooLarge.RetainedDuplicate()).ContinueWith(closeOnFault, TaskContinuationOptions.ExecuteSynchronously);
+#else
                     ctx.WriteAndFlushAsync(TooLarge.RetainedDuplicate()).ContinueWith((t, s) =>
                         {
                             if (t.IsFaulted)
@@ -182,6 +205,7 @@ namespace DotNetty.Codecs.Http
                         },
                         ctx,
                         TaskContinuationOptions.ExecuteSynchronously);
+#endif
                 }
                 // If an oversized request was handled properly and the connection is still alive
                 // (i.e. rejected 100-continue). the decoder should prepare to handle a new message.
