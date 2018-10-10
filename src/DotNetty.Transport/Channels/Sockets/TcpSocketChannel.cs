@@ -128,7 +128,7 @@ namespace DotNetty.Transport.Channels.Sockets
                     RemoteEndPoint = remoteAddress
                 };
                 bool connected = !this.Socket.ConnectAsync(eventPayload);
-                if(connected)
+                if (connected)
                 {
                     this.DoFinishConnect(eventPayload);
                 }
@@ -312,7 +312,7 @@ namespace DotNetty.Transport.Channels.Sockets
 
                     if (writtenBytes > 0)
                     {
-                        // Release the fully written buffers, and update the indexes of the partially written buffer.
+                        // Release the fully written buffers, and update the indexes of the partially written buffer
                         input.RemoveBytes(writtenBytes);
                     }
 
@@ -321,11 +321,11 @@ namespace DotNetty.Transport.Channels.Sockets
                         IList<ArraySegment<byte>> asyncBufferList = bufferList;
                         if (object.ReferenceEquals(sharedBufferList, asyncBufferList))
                         {
-                            asyncBufferList = sharedBufferList.ToArray(); // copying buffers to
+                            asyncBufferList = sharedBufferList.ToArray(); // move out of shared list that will be reused which could corrupt buffers still pending update
                         }
-                        SocketChannelAsyncOperation asyncOperation = this.PrepareWriteOperation(asyncBufferList);
+                        var asyncOperation = this.PrepareWriteOperation(asyncBufferList);
 
-                        // Did not write all buffers completely.
+                        // Not all buffers were written out completely
                         if (this.IncompleteWrite(true, asyncOperation))
                         {
                             break;
@@ -335,13 +335,14 @@ namespace DotNetty.Transport.Channels.Sockets
             }
             finally
             {
+                // Prepare the list for reuse
                 sharedBufferList?.Clear();
             }
         }
 
         List<ArraySegment<byte>> AdjustBufferList(long localWrittenBytes, List<ArraySegment<byte>> bufferList)
         {
-            var adjustbufferList = new List<ArraySegment<byte>>(bufferList.Count);
+            var adjusted = new List<ArraySegment<byte>>(bufferList.Count);
             foreach (ArraySegment<byte> buffer in bufferList)
             {
                 if (localWrittenBytes > 0)
@@ -351,7 +352,7 @@ namespace DotNetty.Transport.Channels.Sockets
                     {
                         int offset = buffer.Offset + (int)localWrittenBytes;
                         int count = -(int)leftBytes;
-                        adjustbufferList.Add(new ArraySegment<byte>(buffer.Array, offset, count));
+                        adjusted.Add(new ArraySegment<byte>(buffer.Array, offset, count));
                         localWrittenBytes = 0;
                     }
                     else
@@ -361,11 +362,10 @@ namespace DotNetty.Transport.Channels.Sockets
                 }
                 else
                 {
-                    adjustbufferList.Add(buffer);
+                    adjusted.Add(buffer);
                 }
             }
-            bufferList = adjustbufferList;
-            return bufferList;
+            return adjusted;
         }
 
         //protected override IChannelUnsafe NewUnsafe() => new TcpSocketChannelUnsafe(this); ## 苦竹 屏蔽 ##
