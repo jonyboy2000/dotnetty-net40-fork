@@ -25,25 +25,81 @@ namespace DotNetty.Buffers
         class ComponentEntry
         {
             public readonly IByteBuffer Buffer;
-            public readonly int Length;
+            public int Adjustment;
             public int Offset;
             public int EndOffset;
+            internal IByteBuffer slice;
 
-            public ComponentEntry(IByteBuffer buffer)
+            public ComponentEntry(IByteBuffer buffer, int srcOffset, int offset, int len, IByteBuffer slice)
             {
                 this.Buffer = buffer;
-                this.Length = buffer.ReadableBytes;
+                this.Offset = offset;
+                this.EndOffset = offset + len;
+                this.Adjustment = srcOffset - offset;
+                this.slice = slice;
             }
 
-            public void FreeIfNecessary() => this.Buffer.Release();
+            public int Idx(int index)
+            {
+                return index + this.Adjustment;
+            }
+
+            public int Length()
+            {
+                return this.EndOffset - this.Offset;
+            }
+
+            public void Reposition(int newOffset)
+            {
+                int move = newOffset - this.Offset;
+                this.EndOffset += move;
+                this.Adjustment -= move;
+                this.Offset = newOffset;
+            }
+
+            // copy then release
+            public void TransferTo(IByteBuffer dst)
+            {
+                dst.WriteBytes(this.Buffer, this.Idx(this.Offset), this.Length());
+                this.FreeIfNecessary();
+            }
+
+            public IByteBuffer Slice()
+            {
+                return this.slice != null ? this.slice : (this.slice = this.Buffer.Slice(this.Idx(this.Offset), this.Length()));
+            }
+
+            public IByteBuffer Duplicate()
+            {
+                return this.Buffer.Duplicate().SetIndex(this.Idx(this.Offset), this.Idx(this.EndOffset));
+            }
+
+            public void FreeIfNecessary()
+            {
+                // Release the slice if present since it may have a different
+                // refcount to the unwrapped buf if it is a PooledSlicedByteBuf
+                IByteBuffer buffer = this.slice;
+                if (buffer != null)
+                {
+                    buffer.Release();
+                }
+                else
+                {
+                    this.Buffer.Release();
+                }
+                // null out in either case since it could be racy
+                this.slice = null;
+            }
         }
 
         static readonly ArraySegment<byte> EmptyNioBuffer = Unpooled.Empty.GetIoBuffer();
 
         readonly IByteBufferAllocator allocator;
         readonly bool direct;
-        readonly List<ComponentEntry> components;
         readonly int maxNumComponents;
+
+        int componentCount;
+        ComponentEntry[] components;
 
         bool freed;
 
@@ -438,9 +494,11 @@ namespace DotNetty.Buffers
         public virtual IEnumerator<IByteBuffer> GetEnumerator()
         {
             this.EnsureAccessible();
-            foreach (ComponentEntry c in this.components)
+
+            var size = this.NumComponents;
+            for (var idx = 0; idx < size; idx++)
             {
-                yield return c.Buffer;
+                yield return this.components[idx].Slice();
             }
         }
 
@@ -1465,7 +1523,7 @@ namespace DotNetty.Buffers
         {
             string result = base.ToString();
             result = result.Substring(0, result.Length - 1);
-            return $"{result}, components={this.components.Count})";
+            return $"{result}, components={this.componentCount})";
         }
 
         public override IReferenceCounted Touch() => this;
@@ -1482,7 +1540,7 @@ namespace DotNetty.Buffers
             }
 
             this.freed = true;
-            int size = this.components.Count;
+            int size = this.componentCount;
             // We're not using foreach to avoid creating an iterator.
             // see https://github.com/netty/netty/issues/2642
             for (int i = 0; i < size; i++)
@@ -1492,5 +1550,75 @@ namespace DotNetty.Buffers
         }
 
         public override IByteBuffer Unwrap() => null;
+
+        // Component array manipulation - range checking omitted
+
+        void ClearComps()
+        {
+            this.RemoveCompRange(0, this.componentCount);
+        }
+
+        void RemoveComp(int i)
+        {
+            this.RemoveCompRange(i, i + 1);
+        }
+
+        void RemoveCompRange(int from, int to)
+        {
+            if (from >= to) { return; }
+
+            int size = this.componentCount;
+            Debug.Assert(from >= 0 && to <= size);
+            if (to < size)
+            {
+                System.Array.Copy(this.components, to, this.components, from, size - to);
+            }
+            int newSize = size - to + from;
+            for (int i = newSize; i < size; i++)
+            {
+                components[i] = null;
+            }
+            this.componentCount = newSize;
+        }
+
+        void AddComp(int i, ComponentEntry c)
+        {
+            this.ShiftComps(i, 1);
+            this.components[i] = c;
+        }
+
+        void ShiftComps(int i, int count)
+        {
+            int size = this.componentCount, newSize = size + count;
+            Debug.Assert(i >= 0 && i <= size && count > 0);
+            if (newSize > this.components.Length)
+            {
+                // grow the array
+                int newArrSize = Math.Max(size + (size >> 1), newSize);
+                ComponentEntry[] newArr;
+                newArr = new ComponentEntry[newArrSize];
+                if (i == size)
+                {
+                    System.Array.Copy(this.components, 0, newArr, 0, Math.Min(this.components.Length, newArrSize));
+                }
+                else
+                {
+                    if (i > 0)
+                    {
+                        System.Array.Copy(this.components, 0, newArr, 0, i);
+                    }
+                    if (i < size)
+                    {
+                        System.Array.Copy(this.components, i, newArr, i + count, size - i);
+                    }
+                }
+                this.components = newArr;
+            }
+            else if (i < size)
+            {
+                System.Array.Copy(this.components, i, this.components, i + count, size - i);
+            }
+            this.componentCount = newSize;
+        }
     }
 }
