@@ -1346,7 +1346,7 @@ namespace DotNetty.Buffers
             return this.ForEachByteAsc0(index, index + length, processor);
         }
 
-        protected virtual int ForEachByteAsc0(int start, int end, IByteProcessor processor)
+        internal protected virtual int ForEachByteAsc0(int start, int end, IByteProcessor processor)
         {
             for (; start < end; ++start)
             {
@@ -1371,7 +1371,7 @@ namespace DotNetty.Buffers
             return this.ForEachByteDesc0(index + length - 1, index, processor);
         }
 
-        protected virtual int ForEachByteDesc0(int rStart, int rEnd, IByteProcessor processor)
+        internal protected virtual int ForEachByteDesc0(int rStart, int rEnd, IByteProcessor processor)
         {
             for (; rStart >= rEnd; --rStart)
             {
